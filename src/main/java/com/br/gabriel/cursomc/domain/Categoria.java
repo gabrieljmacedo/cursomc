@@ -13,7 +13,7 @@ public class Categoria implements Serializable {
 
     // attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String nome;
 

@@ -2,6 +2,8 @@ package com.br.gabriel.cursomc.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "CATEGORIA")
@@ -13,6 +15,8 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produto> produtos = new ArrayList<>();
 
     // constructor
     public Categoria(){
@@ -42,6 +46,14 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
     // hash & Equals
     @Override
     public boolean equals(Object o) {
@@ -55,4 +67,5 @@ public class Categoria implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

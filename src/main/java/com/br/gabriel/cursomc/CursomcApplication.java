@@ -1,13 +1,9 @@
 package com.br.gabriel.cursomc;
 
-import com.br.gabriel.cursomc.domain.Categoria;
-import com.br.gabriel.cursomc.domain.Cidade;
-import com.br.gabriel.cursomc.domain.Estado;
-import com.br.gabriel.cursomc.domain.Produto;
-import com.br.gabriel.cursomc.repositories.CategoriaRepository;
-import com.br.gabriel.cursomc.repositories.CidadeRepository;
-import com.br.gabriel.cursomc.repositories.EstadoRepository;
-import com.br.gabriel.cursomc.repositories.ProdutoRepository;
+import ch.qos.logback.core.net.server.Client;
+import com.br.gabriel.cursomc.domain.*;
+import com.br.gabriel.cursomc.domain.enums.TipoCliente;
+import com.br.gabriel.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +25,13 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
@@ -36,6 +39,7 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		/* instanciação das categorias */
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
 
@@ -53,6 +57,7 @@ public class CursomcApplication implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
+		/* instanciação dos estados */
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
 
@@ -65,6 +70,22 @@ public class CursomcApplication implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+		/* instanciação dos clientes */
+
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+
+		/* telefones atribuídos */
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+
+		/*vincula endereços aos clientes */
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 
 	}
 }

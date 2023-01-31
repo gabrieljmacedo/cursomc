@@ -1,6 +1,7 @@
 package com.br.gabriel.cursomc.services;
 
 import com.br.gabriel.cursomc.domain.Categoria;
+import com.br.gabriel.cursomc.dto.CategoriaDTO;
 import com.br.gabriel.cursomc.repositories.CategoriaRepository;
 import com.br.gabriel.cursomc.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,10 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDto) {
+        return new Categoria(objDto.getId(), objDto.getNome())
     }
 
 }

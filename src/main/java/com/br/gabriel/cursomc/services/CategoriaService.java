@@ -1,6 +1,7 @@
 package com.br.gabriel.cursomc.services;
 
 import com.br.gabriel.cursomc.domain.Categoria;
+import com.br.gabriel.cursomc.domain.Cliente;
 import com.br.gabriel.cursomc.dto.CategoriaDTO;
 import com.br.gabriel.cursomc.repositories.CategoriaRepository;
 import com.br.gabriel.cursomc.services.exception.ObjectNotFoundException;
@@ -32,8 +33,9 @@ public class CategoriaService {
     }
 
     public Categoria update(Categoria obj) {
-        find(obj.getId());
-        return repo.save(obj);
+        Categoria newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repo.save(newObj);
     }
 
     public void deleteById(Integer id) {
@@ -60,6 +62,10 @@ public class CategoriaService {
 
     public Categoria fromDTO(CategoriaDTO objDto) {
         return new Categoria(objDto.getId(), objDto.getNome());
+    }
+
+    private void updateData(Categoria newObj, Categoria obj) {
+        newObj.setNome(obj.getNome());
     }
 
 }

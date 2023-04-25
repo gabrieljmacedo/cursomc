@@ -28,6 +28,10 @@ public class ClienteDTO implements Serializable {
         email = obj.getEmail();
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -38,6 +42,10 @@ public class ClienteDTO implements Serializable {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setEmail(String email) {

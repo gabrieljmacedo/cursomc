@@ -55,7 +55,7 @@ public class ClienteService {
         }
         catch (DataIntegrityViolationException e) {
             throw  new com.br.gabriel.cursomc.services.exception.DataIntegrityViolationException("Não é possível excluir " +
-                    "pois há entidades relacionadas!");
+                    "pois há pedidos relacionados!");
         }
     }
 
